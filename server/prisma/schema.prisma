@@ -1,35 +1,35 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
 model user {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  username   String   @db.VarChar(40)
-  password   String   @db.VarChar(255)
-  email      String?  @db.VarChar(255)
-  firstName  String?  @db.VarChar(255)
-  lastName   String?  @db.VarChar(255)
-  phone      Int?     @db.Int()
-  cardNumber Int?     @db.Int()
-  exDate     String?  @db.VarChar(5)
-  cvc        Int?     @db.Int()
-  zip        String?  @db.VarChar(6)
+    id         Int      @id @default(autoincrement())
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    username   String   @db.VarChar(40)
+    password   String   @db.VarChar(255)
+    email      String?  @db.VarChar(255)
+    firstName  String?  @db.VarChar(255)
+    lastName   String?  @db.VarChar(255)
+    phone      Int?     @db.Int()
+    cardNumber Int?     @db.Int()
+    exDate     String?  @db.VarChar(5)
+    cvc        Int?     @db.Int()
+    zip        String?  @db.VarChar(6)
 }
 
 model userSavedRoutes {
-  id           String  @id @db.Char(36)
-  username     String? @db.VarChar(40)
-  routeId      String? @db.VarChar(255)
-  routeNumber  String? @db.VarChar(255)
-  routeHeading String? @db.VarChar(255)
-  routeName    String? @db.VarChar(255)
-  routeType    String? @db.VarChar(255)
+    id           String  @id @db.Char(36)
+    username     String? @db.VarChar(40)
+    routeId      String? @db.VarChar(255)
+    routeNumber  String? @db.VarChar(255)
+    routeHeading String? @db.VarChar(255)
+    routeName    String? @db.VarChar(255)
+    routeType    String? @db.VarChar(255)
 }
