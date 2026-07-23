@@ -1,6 +1,4 @@
-// FIX: undo axios to fetch
 const prisma = require('../lib/prisma');
-const axios = require("axios");
 
 /*
     SECTION 1: Transit routes
@@ -214,7 +212,7 @@ exports.addSavedRoutes = async (req, res) => {
         routeName,
         routeHeading,
         routeId,
-        routeType,
+       routeType,
     } = req.body;
 
     try {
