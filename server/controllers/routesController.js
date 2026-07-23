@@ -15,128 +15,116 @@ const currentTime = Math.floor(Date.now() / 1000);
 
 exports.getNearbyRoutes = (req, res) => {
     const { lat, lon } = req.body;
-    axios
-        .get(
-            `https://external.transitapp.com/v3/public/nearby_stops?lat=${lat}&lon=${lon}&max_distance=350`,
-            {
+    async function fetchNearbyRoutes() {
+        try {
+            let response = await fetch(`https://external.transitapp.com/v3/public/nearby_stops?lat=${lat}&lon=${lon}&max_distance=350`, {
+                method: "GET",
                 headers: {
-                    apiKey:
-                        process.env.LOCAL_TRANSIT_API_KEY,
+                    "Content-Type": "application/json",
+                    "apiKey": `${process.env.LOCAL_TRANSIT_API_KEY}`
                 },
+            })
+            if (!response.ok) {
+                throw new Error(`Failed to fetch nearby routes: ${response.status}`)
             }
-        )
-        .then((response) => {
-            const stops = response.data.stops;
-            const sortedStops = stops.sort((a, b) => a.distance - b.distance);
-            const closestStops = sortedStops.slice(0, max_stop_size);
-            const stopIds = closestStops.map((stop) => stop.global_stop_id);
+            let data = await response.json()
 
-            const allRoutes = [];
+            const stops = await data.data.stops
+            const sortedStops = stops.sort((a, b) => a.distance - b.distance)
+            const closestStops = sortedStops.slice(0, max_stop_size)
+            const stopIds = closestStops.map((stop) => stop.global_stop_id)
 
-            const stopRoutes = stopIds.map((stopId) => {
-                return axios
-                    .get(
-                        `https://external.transitapp.com/v3/public/stop_departures?global_stop_id=${stopId}&time=${currentTime}`,
-                        {
-                            headers: {
-                                apiKey:
-                                process.env.LOCAL_TRANSIT_API_KEY,
-                            },
+            const allRoutes = []
+
+            for (let i = 0; i < stopIds.length; i++) {
+                let stopId = stopIds[i]
+                try {
+                    let response = await fetch(`https://external.transitapp.com/v3/public/stop_departures?global_stop_id=${stopId}&time=${currentTime}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "apiKey": `${process.env.LOCAL_TRANSIT_API_KEY}`
                         }
-                    )
-                    .then((response) => {
-                        allRoutes.push(response.data);
                     })
-                    .catch((error) => {
-                        console.error(error);
-                        res.status(500).send(
-                            "An error occurred while fetching stop routes."
-                        );
-                    });
-            });
-            Promise.all(stopRoutes)
-                .then(() => {
-                    res.send(allRoutes);
-                })
-                .catch((error) => {
-                    console.error(error);
-                    res.status(500).send(
-                        "An error occurred while fetching stop routes."
-                    );
-                });
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(500).send(
-                "An error occurred while fetching nearby stops."
-            );
-        });
+                    if (!response.ok) {
+                        throw new Error(`Failed to process stopId: ${response.status}`)
+                    }
+                    let data = await response.json()
+                    allRoutes.push(data.data)
+                }
+                catch (error) {
+                    console.error(error)
+                    res.status(500).send("Internval service error while fetching stopId data.")
+                    return
+                }
+            }
+            res.status(200).send(allRoutes)
+        }
+        catch (error) {
+            console.error(error)
+            res.status(500).send("Internal service error while fetching nearby routes.")
+            return
+        }
+    }
+
+    fetchNearbyRoutes()
 };
 
 exports.searchRoutes = (req, res) => {
     const { searchInput } = req.body;
-    axios
-        .get(
-            `https://external.transitapp.com/v3/public/routes_for_network?network_id=TTC|Toronto`,
-            {
+    async function fetchSearchRoutes() {
+        try {
+            let response = await fetch(`https://external.transitapp.com/v3/public/routes_for_network?network_id=TTC|Toronto`, {
+                method: "GET",
                 headers: {
-                    apiKey:
-                        process.env.LOCAL_TRANSIT_API_KEY,
-                },
-            }
-        )
-        .then((response) => {
-            const searchResults = response.data;
-            const closestRoutes = [];
-            searchResults.routes.forEach((route) => {
-                if (
-                    route.route_long_name
-                        .toLowerCase()
-                        .includes(searchInput.toLowerCase()) ||
-                    route.route_short_name.includes(searchInput)
-                ) {
-                    closestRoutes.push(route);
+                    "Content-Type": "application/json",
+                    "apiKey": `${process.env.LOCAL_TRANSIT_API_KEY}`
                 }
-            });
+            })
+            if (!response.ok) {
+                throw new Error(`Failed to process search routes: ${response.status}`)
+            }
+            let data = await response.json()
+            const searchResults = data.data
+            const closestRoutes = []
+            searchResults.routes.forEach((route) => {
+                if (route.route_long_name.toLowerCase().includes(searchInput.toLowerCase()) || route.route_short_name.includes(searchInput)) {
+                    closestRoutes.push(route)
+                }
+            })
 
-            const finalRoutes = [];
-            const bool = true;
-            const errorResponses = [];
-
-            const querryClosestRoutes = closestRoutes.map((route) => {
-                return axios
-                    .get(
-                        `https://external.transitapp.com/v3/public/route_details?global_route_id=${route.global_route_id}&include_next_departure=${bool}`,
-                        {
-                            headers: {
-                                apiKey:
-                                    process.env.LOCAL_TRANSIT_API_KEY,
-                            },
+            const finalRoutes = []
+            for (let i = 0; i < closestRoutes.length; i++) {
+                let route = closestRoutes[i]
+                try {
+                    let response = await fetch(`https://external.transitapp.com/v3/public/route_details?global_route_id=${route.global_route_id}&include_next_departure=true`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "apiKey": `${process.env.LOCAL_TRANSIT_API_KEY}`
                         }
-                    )
-                    .then((response) => {
-                        finalRoutes.push(response.data);
                     })
-                    .catch((err) => {
-                        errorResponses.push(err);
-                    });
-            });
-
-            Promise.all(querryClosestRoutes)
-                .then(() => {
-                    if (errorResponses.length > 0) {
-                        res.status(500).send(errorResponses);
-                    } else {
-                        res.status(200).send(finalRoutes);
+                    if (!response.ok) {
+                        throw new Error(`Failed to process closest routes: ${response.status}`)
                     }
-                })
-                .catch((err) => {
-                    res.status(500).send(err);
-                });
-        })
-        .catch((error) => {
-            res.status(500).send(error);
-        });
+                    let data = await response.json()
+                    finalRoutes.push(data.data)
+                }
+                catch (error) {
+                    console.error(error)
+                    res.status(500).send(`Internal error finding closest route: ${route.global_route_id}`)
+                    return
+                }
+                res.status(200).send(finalRoutes)
+            }
+        }
+        catch (error) {
+            console.error(error)
+            res.status(500).send("Internal service error searching routes")
+            return
+        }
+    }
+    fetchSearchRoutes()
 };
 
 /*
@@ -149,22 +137,27 @@ exports.searchRoutes = (req, res) => {
 
 exports.routeDetails = (req, res) => {
     const id = req.params.id;
-    return axios
-        .get(
-            `https://external.transitapp.com/v3/public/route_details?global_route_id=${id}&include_next_departure=true`,
-            {
+    async function fetchRouteDetails() {
+        try {
+            let response = await fetch(`https://external.transitapp.com/v3/public/route_details?global_route_id=${id}&include_next_departure=true`,{
+                method: "GET",
                 headers: {
-                    apiKey:
-                        process.env.LOCAL_TRANSIT_API_KEY,
-                },
+                    "Content-Type": "application/json",
+                    "apiKey": `${process.env.LOCAL_TRANSIT_API_KEY}`
+                }
+            })
+            if (!response.ok){
+                throw new Error(`Failed to process route details: ${response.status}`)
             }
-        )
-        .then((response) => {
-            res.status(200).json(response.data);
-        })
-        .catch((err) => {
-            res.status(500).send(err);
-        });
+            let data = await response.json()
+            res.status(200).send(data.data)
+        }
+        catch(error){
+            console.error(error)
+            res.status(500).send(`Internal service error fetching route details for route: ${id}`)
+        }
+    }
+    fetchRouteDetails()
 };
 
 /*
