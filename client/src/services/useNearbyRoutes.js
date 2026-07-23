@@ -1,5 +1,3 @@
-// FIX: undo axios to fetch
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { serverURL } from "./config";
 
@@ -12,20 +10,27 @@ function useNearbyRoutes() {
 
     useEffect(() => {
         setNearbyLoading(true);
-        axios
-            .post(`${serverURL}/home`, {
-                lat: userLocation.latitude,
-                lon: userLocation.longitude,
-            })
-            .then((response) => {
-                setNearbyData(response.data);
-            })
-            .catch((error) => {
-                setNearbyError(error);
-            })
-            .finally(() => {
-                setNearbyLoading(false);
-            });
+        async function fetchNearbyRoutes() {
+            try {
+                let response = await fetch(`${serverURL}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ lat: userLocation.latitude, lon: userLocation.longitude }),
+                })
+                if (!response.ok){
+                    throw new Error(`Failed request: ${response.status}`)
+                }
+                let data = await response.json()
+                setNearbyData(data)
+            }
+            catch (error) {
+                setNearbyError(error)
+            }
+            finally {
+                setNearbyLoading(false)
+            }
+        }
+        fetchNearbyRoutes()
     }, []);
 
     return { nearbyData, nearbyLoading, nearbyError };

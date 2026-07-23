@@ -1,17 +1,15 @@
-// FIX: undo axios to fetch
-import axios from "axios";
 import { serverURL } from "./config";
 
-export function editUserDetails(username, data) {
-    axios
-        .post(`${serverURL}/user/editUserDetails`, {
-            username: username,
-            data: data,
+export async function editUserDetails(username, data) {
+    try {
+        await fetch(`${serverURL}/user/editUserDetails`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, data }),
         })
-        .then((response) => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        return true
+    }
+    catch (error) {
+        throw new Error("Failed to save user details.")
+    }
 }

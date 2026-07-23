@@ -1,28 +1,44 @@
-// FIX: undo axios to fetch
-import axios from "axios";
 import { serverURL } from "./config";
 
-export function savedRouteChecker(username, routeId) {
-    axios
-        .post(`${serverURL}/home/checkSavedRoutes`, {
-            username: username,
-            routeId: routeId,
+export async function savedRouteChecker(username, routeId) {
+    try {
+        await fetch(`${serverURL}/home/checkSavedRoutes`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, routeId }),
         })
-        .then((response) => {
-            return true;
-        })
-        .catch((error) => {
-            return false;
-        });
+        return true
+    }
+    catch (error) {
+        throw new Error("Failed to find saved route.")
+    }
 }
 
-export function saveNewRoute(data) {
-    axios.post(`${serverURL}/home/saveRoutes`, data);
+export async function saveNewRoute(data) {
+    try {
+        await fetch(`${serverURL}/home/saveRoutes`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ data }),
+        })
+        return true
+    }
+    catch (error) {
+        throw new Error("Failed to save route.")
+    }
+
 }
 
-export function deleteSavedRoute(username, routeId) {
-    axios.post(`${serverURL}/home/deleteRoutes`, {
-        username: username,
-        routeId: routeId,
-    });
+export async function deleteSavedRoute(username, routeId) {
+    try {
+        await fetch(`${serverURL}/home/deleteRoutes`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, routeId }),
+        })
+        return true
+    }
+    catch (error) {
+        throw new Error("Failed to delete route.")
+    }
 }

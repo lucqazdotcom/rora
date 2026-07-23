@@ -1,16 +1,15 @@
-// FIX: undo axios to fetch
-import axios from "axios";
 import { serverURL } from "./config";
 
-export default function searchRoutes(searchInput) {
-    axios
-        .post(`${serverURL}/home/search`, {
-            searchInput: searchInput,
+export async function searchRoutes(searchInput) {
+    try {
+        let response = await fetch(`${serverURL}/home/search`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({searchInput})
         })
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        return response.data
+    }
+    catch (error) {
+        throw new Error("Failed to search route.")
+    }
 }

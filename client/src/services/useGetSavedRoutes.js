@@ -1,5 +1,3 @@
-// FIX: undo axios to fetch
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { serverURL } from "./config";
 
@@ -12,21 +10,29 @@ function useGetSavedRoutes() {
 
     useEffect(() => {
         setSavedRoutesLoading(true);
-        axios
-            .post(`${serverURL}/home/savedRoutes`, {
-                username: username,
-            })
-            .then((response) => {
-                setSavedRoutesData(response.data);
-            })
-            .catch((error) => {
+        async function fetchSavedRoutes() {
+            try {
+                let response = await fetch(`${serverURL}/home/savedRoutes`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({username})
+                })
+                if (!response.ok) {
+                    throw new Error(`Request failed: ${response.status}`)
+                }
+                const data = await response.json()
+                setSavedRoutesData(data)
+            }
+            catch (error) {
                 setSavedRoutesError(error);
-            })
-            .finally(() => {
+                console.log(error);
+            }
+            finally {
                 setSavedRoutesLoading(false);
-            });
+            }
+        }
+        fetchSavedRoutes()
     }, []);
 
     return { savedRoutesData, savedRoutesLoading, savedRoutesError };
 }
-export default useGetSavedRoutes;
