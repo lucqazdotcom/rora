@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { serverURL } from "./config";
 
-function useGetSavedRoutes() {
+export default function useGetSavedRoutes() {
     const [savedRoutesData, setSavedRoutesData] = useState([]);
     const [savedRoutesLoading, setSavedRoutesLoading] = useState(null);
     const [savedRoutesError, setSavedRoutesError] = useState(null);

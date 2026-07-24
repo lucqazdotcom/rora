@@ -1,9 +1,8 @@
 import { FormControl, Box } from "@chakra-ui/react";
 import LoginInput from "../input/LoginInput";
 import { useState } from "react";
-import axios from "axios";
-import { serverURL } from "../../../services/config";
 import LoginButton from "../button/LoginButton";
+import fetchLogin from "../../../services/login"
 
 function LoginForm({ handleVerifyUser }) {
     const [username, setUsername] = useState("");
@@ -24,44 +23,41 @@ function LoginForm({ handleVerifyUser }) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = (event) => {
+        // FIX: add auth and remove demo logic
         event.preventDefault();
-        setIsLoading(true);
-        axios
-            .post(`${serverURL}/login`, {
-                username: username,
-                password: password,
-            })
-            .then((response) => {
-                localStorage.setItem(
-                    "username",
-                    JSON.stringify(response.data.username)
-                );
-                localStorage.setItem(
-                    "first_name",
-                    JSON.stringify(response.data.first_name)
-                );
-                setTimeout(() => {
-                    setIsLoading(false);
-                    handleVerifyUser();
-                }, 3000);
-            })
-            .catch((error) => {
-                if (error.response) {
-                    if (error.response.data.error === "USER_NOT_FOUND") {
-                        setUsernameError(true);
-                        setPasswordError(true);
-                        alert("User not found.");
-                    } else if (
-                        error.response.data.error === "INCORRECT_PASSWORD"
-                    ) {
-                        setPasswordError(true);
-                        alert("Login unsuccessful. Incorrect Password.");
-                    }
-                } else {
-                    alert("An error occurred. Please try again later.");
-                }
-                setIsLoading(false);
-            });
+        setIsLoading(true)
+        handleVerifyUser()
+        setIsLoading(false)
+        // const loginInformation = fetchLogin(username, password)
+        // if(!loginInformation){
+        //     console.error("Failed to fetch user credentials")
+        //     setUsernameError(true)
+        //     setPasswordError(true)
+        //     alert("User not found")
+        // }
+        // localStorage.setItem("username": loginInformation.username)
+        // localStorage.setItem("password": loginInformation.password)
+        // setTimeout(() => {
+        //     setIsLoading(false);
+        //     handleVerifyUser();
+        // }, 3000);
+        //     .catch((error) => {
+        //         if (error.response) {
+        //             if (error.response.data.error === "USER_NOT_FOUND") {
+        //                 setUsernameError(true);
+        //                 setPasswordError(true);
+        //                 alert("User not found.");
+        //             } else if (
+        //                 error.response.data.error === "INCORRECT_PASSWORD"
+        //             ) {
+        //                 setPasswordError(true);
+        //                 alert("Login unsuccessful. Incorrect Password.");
+        //             }
+        //         } else {
+        //             alert("An error occurred. Please try again later.");
+        //         }
+        //         setIsLoading(false);
+        //     });
     };
     return (
         <FormControl
