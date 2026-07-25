@@ -1,6 +1,6 @@
 # RORA
 
-** NOTE: ** This application is currently deprecated due to account servie changes from both planetScale and the data provider.
+** NOTE: ** This application is currently deprecated due to account service changes from both db and the api providers.
 
 Rora is an all-in-one transit app, which allows users access to on-time transit scheduling, community engagement, and payment processing (TBD).
 
