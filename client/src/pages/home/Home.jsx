@@ -1,10 +1,10 @@
 import UserProfileContainer from "../../components/userProlileContainer/UserProfileContainer";
 import user3 from "../../assets/images/user3.jpg";
-import { Flex, Img, Box } from "@chakra-ui/react";
+import { Flex, Img, Box, Drawer } from "@chakra-ui/react";
 import MainHeader from "../../components/mainHeader/MainHeader";
 import RouteCardList from "../../components/routeCardList/RouteCardList";
 import SearchResultsDrawer from "../../components/ui/drawer/SearchResultsDrawer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../../utils/useLoading";
@@ -12,6 +12,7 @@ import RoraLogo from "../../assets/logo/rora-secondary.svg";
 import { serverURL } from "../../services/config";
 
 function Home() {
+    const drawerRef = useRef()
     const isLoading = useLoading();
     const navigate = useNavigate();
 
@@ -60,18 +61,21 @@ function Home() {
     };
 
     useEffect(() => {
+
+        if (!isDrawerOpen) return
+
         const handleClickOutsideDrawer = (event) => {
-            if (!event.target.closest("#outside-box-target")) {
+            if (!drawerRef.current && !drawerRef.current.contains(event.target)) {
                 setIsDrawerOpen(false);
             }
         };
 
-        window.addEventListener("click", handleClickOutsideDrawer);
+        document.addEventListener("click", handleClickOutsideDrawer);
 
         return () => {
-            window.removeEventListener("click", handleClickOutsideDrawer);
+            document.removeEventListener("click", handleClickOutsideDrawer);
         };
-    }, []);
+    }, [isDrawerOpen]);
 
     return (
         <Flex
@@ -84,29 +88,22 @@ function Home() {
                 userImg={user3}
                 handleNavigate={handleNavigate}
             />
-            <Img
-                src={RoraLogo}
-                position="absolute"
-                display={isLoading ? "block" : "none"}
-                left="0"
-                top="17%"
-            />
-            <MainHeader userFirstName={userFirstName} loaded={isLoading} />
-            <Box
-                position="absolute"
-                id="outside-box-target"
-                onClick={handleReset}
-                display={cardListVisible ? "block" : "none"}
-                w="85%"
-                h="10vh"
-                p="8px"
+            <Flex
+                justifyContent="center"
+                direction="column"
+                h="50%"
+
             >
-                <CloseIcon color="snow" />
-            </Box>
+                <Img
+                    src={RoraLogo}
+                    display={isLoading ? "block" : "none"}
+                />
+                <MainHeader userFirstName={userFirstName} loaded={isLoading} />
+            </Flex>
             <RouteCardList
+                ref={drawerRef}
                 handleFocus={handleFocus}
                 cardListVisible={cardListVisible}
-                isDrawerOpen={isDrawerOpen}
                 isLoaded={isLoading}
                 userInput={userInput}
                 handleChange={handleChange}

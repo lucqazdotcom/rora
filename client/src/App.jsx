@@ -18,43 +18,63 @@ function App() {
                     align="center"
                     h="100vh"
                     w="100vw"
-                    backgroundColor="lavender"
+                    backgroundColor="deepNavy"
                 >
-                    <PhoneBorder
-                        children={
-                            <>
-                                <Box
-                                    bg="deepNavy"
-                                    boxSizing="border-box"
-                                    h="90%"
-                                    px="24px"
-                                    pt="24px"
-                                >
-                                    <BrowserRouter>
-                                        <Routes>
-                                            <Route
-                                                path="/"
-                                                element={<Login />}
-                                            />
-                                            <Route
-                                                path="/home"
-                                                element={<Home />}
-                                            />
-                                            <Route
-                                                path="/home/user"
-                                                element={<UserProfile />}
-                                            />
-                                            <Route
-                                                path="/home/:id"
-                                                element={<RouteDetails />}
-                                            />
-                                        </Routes>
-                                    </BrowserRouter>
-                                </Box>
-                                <Footer />
-                            </>
-                        }
-                    />
+                    <BrowserRouter>
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={<Login />}
+                            />
+                            <Route
+                                path="/home"
+                                element={<Home />}
+                            />
+                            <Route
+                                path="/home/user"
+                                element={<UserProfile />}
+                            />
+                            <Route
+                                path="/home/:id"
+                                element={<RouteDetails />}
+                            />
+                        </Routes>
+                    </BrowserRouter>
+                    {/* <PhoneBorder */}
+                    {/*     children={ */}
+                    {/*         <> */}
+                    {/*             <Box */}
+                    {/*                 bg="deepNavy" */}
+                    {/*                 boxSizing="border-box" */}
+                    {/*                 h="90%" */}
+                    {/*                 px="24px" */}
+                    {/*                 pt="24px" */}
+                    {/*             > */}
+                    {/*                 <BrowserRouter> */}
+                    {/*                     <Routes> */}
+                    {/*                         <Route */}
+                    {/*                             path="/" */}
+                    {/*                             element={<Login />} */}
+                    {/*                         /> */}
+                    {/*                         <Route */}
+                    {/*                             path="/home" */}
+                    {/*                             element={<Home />} */}
+                    {/*                         /> */}
+                    {/*                         <Route */}
+                    {/*                             path="/home/user" */}
+                    {/*                             element={<UserProfile />} */}
+                    {/*                         /> */}
+                    {/*                         <Route */}
+                    {/*                             path="/home/:id" */}
+                    {/*                             element={<RouteDetails />} */}
+                    {/*                         /> */}
+                    {/*                     </Routes> */}
+                    {/*                 </BrowserRouter> */}
+                    {/*             </Box> */}
+                    {/*             <Footer /> */}
+                    {/*         </> */}
+                    {/*     } */}
+                    {/* /> */}
                 </Flex>
             </ChakraProvider>
         </>
