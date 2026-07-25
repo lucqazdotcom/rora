@@ -1,5 +1,3 @@
-// FIX: undo axios to fetch
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { serverURL } from "./config";
 
@@ -10,18 +8,26 @@ function useGetRouteDetails(id) {
 
     useEffect(() => {
         setRouteDetailsLoading(true);
-        axios
-            .get(`${serverURL}/home/${id}`)
-            .then((response) => {
-                setRouteDetailsData(response.data);
-            })
-            .catch((error) => {
+        async function fetchRouteDetails() {
+            try {
+                let response = await fetch(`${serverURL}/home/${id}`, {
+                    method: "GET",
+                })
+                if (!response.ok) {
+                    throw new Error(`Request failed: ${response.status}`)
+                }
+                const data = await response.json()
+                setRouteDetailsData(data)
+            }
+            catch (error) {
                 setRouteDetailsError(error);
-                console.log(error)
-            })
-            .finally(() => {
+                console.log(error);
+            }
+            finally {
                 setRouteDetailsLoading(false);
-            });
+            }
+        }
+        fetchRouteDetails()
     }, [id]);
 
     return { routeDetailsData, routeDetailsLoading, routeDetailsError };

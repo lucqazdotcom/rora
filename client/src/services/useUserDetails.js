@@ -1,5 +1,3 @@
-// FIX: undo axios to fetch
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { serverURL } from "./config";
 
@@ -12,19 +10,27 @@ function useUserDetails() {
 
     useEffect(() => {
         setUserDetailsLoading(true);
-        axios
-            .post(`${serverURL}/user/userDetails`, {
-                username: username,
-            })
-            .then((response) => {
-                setUserDetailsData(response.data);
-            })
-            .catch((error) => {
-                setUserDetailsError(error);
-            })
-            .finally(() => {
-                setUserDetailsLoading(false);
-            });
+        async function fetchUserDetails() {
+            try {
+                let response = await fetch(`${serverURL}/user/userDetails`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username })
+                })
+                if (!response.ok) {
+                    throw new Error(`Failed request for user details: ${response.status}`)
+                }
+                let data = await response.json()
+                setUserDetailsData(data)
+            }
+            catch (error) {
+                setUserDetailsError(error)
+            }
+            finally {
+                setUserDetailsLoading(false)
+            }
+        }
+        fetchUserDetails()
     }, []);
 
     return { userDetailsData, userDetailsLoading, userDetailsError };

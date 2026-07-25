@@ -9,7 +9,6 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../../utils/useLoading";
 import RoraLogo from "../../assets/logo/rora-secondary.svg";
-import axios from "axios";
 import { serverURL } from "../../services/config";
 
 function Home() {
@@ -17,10 +16,7 @@ function Home() {
     const navigate = useNavigate();
 
 
-    //State for brining up the cardlist
     const [cardListVisible, setCardListVisible] = useState(false);
-
-    //State for search results
     const [data, setData] = useState([]);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [userInput, setUserInput] = useState(null);
@@ -31,18 +27,18 @@ function Home() {
 
     const handleEnter = (event) => {
         if (userInput !== "") {
-            axios
-                .post(`${serverURL}/home/search`, {
-                    searchInput: userInput,
-                })
-                .then((response) => {
-                    setData(response.data);
-                    setCardListVisible(true);
-                    setIsDrawerOpen(true);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            // axios
+            //     .post(`${serverURL}/home/search`, {
+            //         searchInput: userInput,
+            //     })
+            //     .then((response) => {
+            //         setData(response.data);
+            //         setCardListVisible(true);
+            //         setIsDrawerOpen(true);
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     });
         }
     };
 
