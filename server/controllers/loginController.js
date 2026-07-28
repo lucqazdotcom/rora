@@ -1,4 +1,4 @@
-const prisma = require('../lib/prisma')
+const prisma = require('../prisma/client')
 
 exports.userLogin = async (req, res) => {
     const { username, password } = req.body;
@@ -12,10 +12,10 @@ exports.userLogin = async (req, res) => {
         if (!user) {
             res.status(404).json({ error: "USER_NOT_FOUND" });
         } else if (user[0].password === password) {
-            const payload = { 
-                first_name: user[0].firstName, 
-                username: user[0].username, 
-                password: user[0].password 
+            const payload = {
+                first_name: user[0].firstName,
+                username: user[0].username,
+                password: user[0].password
             };
             res.status(200).json(payload);
         } else {

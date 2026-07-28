@@ -1,11 +1,11 @@
 generator client {
-    provider = "prisma-client-js"
+    provider     = "prisma-client-js"
+    output       = "../generated/prisma"
+    moduleFormat = "cjs"
 }
 
 datasource db {
-    provider     = "mysql"
-    url          = env("DATABASE_URL")
-    relationMode = "prisma"
+    provider = "postgresql"
 }
 
 model user {
@@ -17,15 +17,15 @@ model user {
     email      String?  @db.VarChar(255)
     firstName  String?  @db.VarChar(255)
     lastName   String?  @db.VarChar(255)
-    phone      Int?     @db.Int()
-    cardNumber Int?     @db.Int()
+    phone      String?  @db.VarChar(20)
+    cardNumber String?  @db.VarChar(20)
     exDate     String?  @db.VarChar(5)
-    cvc        Int?     @db.Int()
+    cvc        String?  @db.VarChar(4)
     zip        String?  @db.VarChar(6)
 }
 
 model userSavedRoutes {
-    id           String  @id @db.Char(36)
+    id           String  @id @db.Uuid
     username     String? @db.VarChar(40)
     routeId      String? @db.VarChar(255)
     routeNumber  String? @db.VarChar(255)

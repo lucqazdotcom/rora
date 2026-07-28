@@ -1,4 +1,4 @@
-const prisma = require('../lib/prisma');
+const prisma = require('../prisma/client');
 
 /*
     SECTION 1: Transit routes

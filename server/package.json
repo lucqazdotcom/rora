@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "seed": "node seed/seed.js",
+        "seed": "node prisma/seed.js",
         "start": "npm run seed && node index.js",
         "dev": "npx nodemon index.js",
         "build": "prisma generate",
@@ -14,13 +14,15 @@
     "author": "SobczakL",
     "license": "ISC",
     "dependencies": {
-        "@prisma/client": "^5.5.2",
+        "@prisma/adapter-pg": "^7.9.1",
+        "@prisma/client": "^7.9.1",
         "cors": "^2.8.5",
-        "dotenv": "^16.0.3",
-        "express": "^4.21.2"
+        "dotenv": "^16.6.1",
+        "express": "^4.21.2",
+        "pg": "^8.22.0"
     },
     "devDependencies": {
         "nodemon": "^3.1.14",
-        "prisma": "^5.5.2"
+        "prisma": "^7.9.1"
     }
 }
