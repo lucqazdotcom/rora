@@ -12,7 +12,6 @@ import RoraLogo from "../../assets/logo/rora-secondary.svg";
 import { serverURL } from "../../services/config";
 
 function Home() {
-    const drawerRef = useRef()
     const isLoading = useLoading();
     const navigate = useNavigate();
 
@@ -101,7 +100,6 @@ function Home() {
                 <MainHeader userFirstName={userFirstName} loaded={isLoading} />
             </Flex>
             <RouteCardList
-                ref={drawerRef}
                 handleFocus={handleFocus}
                 isLoaded={isLoading}
                 userInput={userInput}
