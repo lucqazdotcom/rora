@@ -103,7 +103,6 @@ function Home() {
             <RouteCardList
                 ref={drawerRef}
                 handleFocus={handleFocus}
-                cardListVisible={cardListVisible}
                 isLoaded={isLoading}
                 userInput={userInput}
                 handleChange={handleChange}

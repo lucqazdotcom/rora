@@ -9,7 +9,6 @@ import useGetSavedRoutes from "../../services/useGetSavedRoutes";
 
 function RouteCardList({
     handleFocus,
-    cardListVisible,
     isDrawerOpen,
     isLoaded,
     handleChange,
@@ -22,12 +21,6 @@ function RouteCardList({
     const { savedRoutesData } = useGetSavedRoutes();
 
     const [listType, setListType] = useState("nearby");
-
-    //Variants for transitions
-    const cardListVariants = {
-        visible: { y: "15%", transition: { duration: 0.3 } },
-        hidden: { y: "50%" },
-    };
 
     const onFocus = () => {
         handleFocus();
@@ -55,10 +48,7 @@ function RouteCardList({
         <Flex
             direction="column"
             as={motion.div}
-            variants={cardListVariants}
-            initial={cardListVisible ? "visible" : "hidden"}
-            animate={cardListVisible ? "visible" : "hidden"}
-            h="100%"
+            h="50%"
         >
             <RouteSearchPanel
                 onClick={onFocus}
@@ -79,7 +69,7 @@ function RouteCardList({
                     gap="5px"
                     w="100%"
                     py="8px"
-                    h={cardListVisible ? "100%" : "175px"}
+                    h="175px"
                     overflowY="auto"
                     sx={{
                         scrollbarWidth: "thin",
