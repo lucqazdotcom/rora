@@ -1,4 +1,4 @@
-const prisma = require('../lib/prisma')
+const prisma = require('../prisma/client')
 
 exports.getUserDetails = async (req, res) => {
     const { username } = req.body;

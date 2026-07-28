@@ -29,7 +29,7 @@ function RouteDetails() {
 
     const { routeDetailsData } = useGetRouteDetails(id);
 
-    const username = JSON.parse(localStorage.getItem("username"));
+    const username = localStorage.getItem("username")
     const direction = JSON.parse(localStorage.getItem("direction"));
 
     const [isSaved, setIsSaved] = useState(async function verifySave() {

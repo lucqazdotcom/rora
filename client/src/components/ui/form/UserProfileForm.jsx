@@ -20,7 +20,7 @@ function UserProfileForm() {
         cvc: '',
         zip: '',
     });
-    
+
     // Handle error states
     const [formErrors, setFormErrors] = useState({
         firstName: false,
@@ -47,45 +47,39 @@ function UserProfileForm() {
             } = userDetailsData[0];
 
             setFormData({
-                firstName,
-                lastName,
-                email,
-                phone,
-                cardNumber,
-                exDate,
-                cvc,
-                zip,
+                firstName: firstName ?? '',
+                lastName: lastName ?? '',
+                email: email ?? '',
+                phone: phone ?? '',
+                cardNumber: cardNumber ?? '',
+                exDate: exDate ?? '',
+                cvc: cvc ?? '',
+                zip: zip ?? '',
             });
         }
     }, [userDetailsData]);
 
-    const username = JSON.parse(localStorage.getItem("username"));
+    const username = localStorage.getItem("username")
 
     const handleSave = () => {
-        const formattedData = {
-            ...formData,
-            phone: parseInt(formData.phone, 10), 
-            cvc: parseInt(formData.cvc, 10), 
-            cardNumber: parseInt(formData.cardNumber, 10)
-        };
-        editUserDetails(username, formattedData);
+        editUserDetails(username, formData);
     };
 
     if (userDetailsData) {
         return (
-            <FormControl 
-            overflowY="scroll"
-            h="100%"
-            sx={{
-                overflowY: "scroll",
-                scrollbarWidth: "thin",
-                "&::-webkit-scrollbar": {
-                    display: "none",
-                },
-            }}
+            <FormControl
+                overflowY="scroll"
+                h="100%"
+                sx={{
+                    overflowY: "scroll",
+                    scrollbarWidth: "thin",
+                    "&::-webkit-scrollbar": {
+                        display: "none",
+                    },
+                }}
             >
-                <VStack 
-                gap="1"
+                <VStack
+                    gap="1"
                 >
                     <Flex gap="16px">
                         <UserInput

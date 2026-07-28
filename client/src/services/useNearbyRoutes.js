@@ -6,7 +6,7 @@ function useNearbyRoutes() {
     const [nearbyLoading, setNearbyLoading] = useState(null);
     const [nearbyError, setNearbyError] = useState(null);
 
-    const userLocation = JSON.parse(localStorage.getItem("location"));
+    const userLocation = localStorage.getItem("location")
 
     useEffect(() => {
         setNearbyLoading(true);

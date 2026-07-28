@@ -6,7 +6,7 @@ export default function useGetSavedRoutes() {
     const [savedRoutesLoading, setSavedRoutesLoading] = useState(null);
     const [savedRoutesError, setSavedRoutesError] = useState(null);
 
-    const username = JSON.parse(localStorage.getItem("username"));
+    const username = localStorage.getItem("username")
 
     useEffect(() => {
         setSavedRoutesLoading(true);

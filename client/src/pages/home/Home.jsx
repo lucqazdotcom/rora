@@ -42,7 +42,7 @@ function Home() {
         }
     };
 
-    const userFirstName = JSON.parse(localStorage.getItem("first_name"));
+    const userFirstName = localStorage.getItem("first_name")
 
     const handleFocus = () => {
         setCardListVisible(!cardListVisible);
