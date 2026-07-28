@@ -1,14 +1,9 @@
 import { serverURL } from "./config";
 
+// NOTE: roll real auth out of demo
 export default async function fetchLogin(username, password){
-    const loginData = {
-        "username": "",
-        "password":"",
-        "data": null
-
-    }
     try {
-        let reponse = await fetch(`${serverURL}/login`, {
+        let response = await fetch(`${serverURL}/login`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({username, password})
@@ -17,7 +12,7 @@ export default async function fetchLogin(username, password){
             throw new Error(`Failed to login with credentials: ${response.status}`)
         }
         let data = await response.json()
-        loginData["username"] = data.data
+        console.log(data)
         return data
     }
     catch(error){
