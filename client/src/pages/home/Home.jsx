@@ -9,7 +9,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../../utils/useLoading";
 import RoraLogo from "../../assets/logo/rora-secondary.svg";
-import { serverURL } from "../../services/config";
+import searchRoutes from "../../services/searchRoutes"
 
 function Home() {
     const isLoading = useLoading();
@@ -25,20 +25,12 @@ function Home() {
         setUserInput(event.target.value);
     };
 
-    const handleEnter = (event) => {
+    const handleEnter = async (event) => {
         if (userInput !== "") {
-            // axios
-            //     .post(`${serverURL}/home/search`, {
-            //         searchInput: userInput,
-            //     })
-            //     .then((response) => {
-            //         setData(response.data);
-            //         setCardListVisible(true);
-            //         setIsDrawerOpen(true);
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
+            let searchData = await searchRoutes(userInput)
+            setData(searchData)
+            setCardListVisible(true)
+            setIsDrawerOpen(true)
         }
     };
 

@@ -90,14 +90,17 @@ function RouteCardList({
                 >
                     {listType === "nearby"
                         ? nearbyData &&
-                          nearbyData.map((route, index) => {
+                          nearbyData.filter(Boolean).map((route, index) => {
+                              const departure = route.route_departures[0];
+                              const itinerary =
+                                  departure.merged_itineraries[0]
+                                      ?.itineraries[0];
                               const isSaved = () => {
                                   return (
                                       savedRoutesData.find(
                                           (savedRoute) =>
                                               savedRoute.routeId ===
-                                              route.route_departures[0]
-                                                  .global_route_id
+                                              departure.global_route_id
                                       ) !== undefined
                                   );
                               };
@@ -107,28 +110,16 @@ function RouteCardList({
                                       isFocused={isDrawerOpen}
                                       onClick={() =>
                                           handleRouteCardClick(
-                                              route.route_departures[0]
-                                                  .global_route_id,
-                                              route.route_departures[0]
-                                                  .itineraries[0]
-                                                  .direction_headsign
+                                              departure.global_route_id,
+                                              itinerary?.direction_headsign
                                           )
                                       }
-                                      routeNumber={
-                                          route.route_departures[0]
-                                              .route_short_name
-                                      }
+                                      routeNumber={departure.route_short_name}
                                       routeHeadsign={
-                                          route.route_departures[0]
-                                              .itineraries[0].direction_headsign
+                                          itinerary?.direction_headsign
                                       }
-                                      routeName={
-                                          route.route_departures[0]
-                                              .route_long_name
-                                      }
-                                      routeType={
-                                          route.route_departures[0].route_type
-                                      }
+                                      routeName={departure.route_long_name}
+                                      routeType={departure.route_type}
                                       isSaved={isSaved()}
                                   />
                               );

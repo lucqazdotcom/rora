@@ -6,13 +6,13 @@ function useNearbyRoutes() {
     const [nearbyLoading, setNearbyLoading] = useState(null);
     const [nearbyError, setNearbyError] = useState(null);
 
-    const userLocation = localStorage.getItem("location")
+    const userLocation = JSON.parse(localStorage.getItem("location"))
 
     useEffect(() => {
         setNearbyLoading(true);
         async function fetchNearbyRoutes() {
             try {
-                let response = await fetch(`${serverURL}`, {
+                let response = await fetch(`${serverURL}/home`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ lat: userLocation.latitude, lon: userLocation.longitude }),
@@ -24,6 +24,7 @@ function useNearbyRoutes() {
                 setNearbyData(data)
             }
             catch (error) {
+                console.log(error)
                 setNearbyError(error)
             }
             finally {
