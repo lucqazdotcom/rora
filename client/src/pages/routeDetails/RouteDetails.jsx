@@ -85,6 +85,7 @@ function RouteDetails() {
     };
 
     if (routeDetailsData) {
+        // BUG: render UI breaks if user is not near location of fav route
         const routeDetailsDataSliced = getStopsAfterCurrentLocation(
             routeDetailsData
         );
