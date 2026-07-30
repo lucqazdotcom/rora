@@ -1,4 +1,4 @@
-import { Button, Img } from "@chakra-ui/react";
+import { Steps, Button, Image } from "@chakra-ui/react";
 
 function PrimaryButton({ innerText, handleButtonClick, icon, listType }) {
     const handleClick = () => {
@@ -27,7 +27,7 @@ function PrimaryButton({ innerText, handleButtonClick, icon, listType }) {
         >
             {innerText}
             {icon ? (
-                <Img
+                <Image
                     position="absolute"
                     right="10px"
                     src={icon}

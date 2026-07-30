@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Steps, Flex } from "@chakra-ui/react";
 import SearchInput from "../ui/input/SearchInput";
 import PrimaryButton from "../ui/button/PrimaryButton";
 import SecondaryButton from "../ui/button/SecondaryButton";

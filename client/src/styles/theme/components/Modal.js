@@ -1,22 +1,15 @@
-import { defineStyleConfig } from "@chakra-ui/react";
-
-const Modal = defineStyleConfig({
-    baseStyle: {
-        mt: "30px",
-        dialogContainer: {
-            mt: "15vh",
+import { Steps, defineSlotRecipe } from "@chakra-ui/react";
+import { dialogAnatomy } from "@chakra-ui/react/anatomy";
+const Modal = defineSlotRecipe({
+    slots: dialogAnatomy.keys(),
+    base: {
+        backdrop: {
+            bg: "blackAlpha.600",
         },
-        dialog: {
-            w: "280px",
-        },
-        overlay: {
-            w: "320px",
-            h: "665px",
-            top: "50%",
-            bottom: "50%",
-            right: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+        content: {
+            bg: "neutral.surface",
+            color: "neutral.text",
+            borderRadius: "20px",
         },
     },
 });

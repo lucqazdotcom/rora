@@ -1,18 +1,10 @@
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Heading,
-    Img,
-    VStack,
-    Text,
-} from "@chakra-ui/react";
+import { Steps, Card, Heading, Image, VStack, Text, Icon } from "@chakra-ui/react";
 import tramIcon from "../../assets/icons/tram.svg";
 import subwayIcon from "../../assets/icons/subway.svg";
 import trainIcon from "../../assets/icons/train.svg";
 import busIcon from "../../assets/icons/bus.svg";
-import { ChevronRightIcon } from "@chakra-ui/icons";
 import trimDirectionHeading from "../../utils/trimDirectionHeading";
+import { LuChevronRight } from 'react-icons/lu';
 function RouteCard({
     routeNumber,
     routeHeadsign,
@@ -29,7 +21,7 @@ function RouteCard({
         3: busIcon,
     };
     return (
-        <Card
+        <Card.Root
             onClick={onClick}
             display="flex"
             direction="row"
@@ -46,18 +38,18 @@ function RouteCard({
             _active={{ bg: "deepNavy" }}
             cursor="pointer"
         >
-            <Img
+            <Image
                 src={routeIcons[routeType]}
                 maxH="100%"
                 maxW="40px"
                 color="snow"
             />
             <VStack 
-            spacing="0" 
+            gap="0" 
             align="start" 
             w="100%" 
             color={!isFocused ? "snow" : "twilight"}>
-                <CardHeader p="0">
+                <Card.Header p="0">
                     <Heading
                         fontFamily="latoB"
                         fontSize="fs.subheader"
@@ -67,8 +59,8 @@ function RouteCard({
                         ${routeHeadsign}
                         `}
                     </Heading>
-                </CardHeader>
-                <CardBody p="0">
+                </Card.Header>
+                <Card.Body p="0">
                     <Text
                         fontFamily="latoR"
                         fontSize="fs.body.lg"
@@ -76,13 +68,10 @@ function RouteCard({
                     >
                         {routeName}
                     </Text>
-                </CardBody>
+                </Card.Body>
             </VStack>
-            <ChevronRightIcon
-                boxSize={6}
-                color={isSaved ? "sunrise" : "lavender"}
-            />
-        </Card>
+            <Icon boxSize={6} color={isSaved ? "sunrise" : "lavender"} asChild><LuChevronRight /></Icon>
+        </Card.Root>
     );
 }
 

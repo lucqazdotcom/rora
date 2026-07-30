@@ -1,18 +1,10 @@
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Heading,
-    Img,
-    VStack,
-    Text,
-} from "@chakra-ui/react";
+import { Steps, Card, Heading, Image, VStack, Text, Icon } from "@chakra-ui/react";
 import tramIcon from "../../assets/icons/tram.svg";
 import subwayIcon from "../../assets/icons/subway.svg";
 import trainIcon from "../../assets/icons/train.svg";
 import busIcon from "../../assets/icons/bus.svg";
-import { ArrowBackIcon, StarIcon } from "@chakra-ui/icons";
 import trimDirectionHeading from "../../utils/trimDirectionHeading";
+import { LuArrowLeft, LuStar } from 'react-icons/lu';
 
 function RouteDetailsCard({
     routeNumber,
@@ -30,7 +22,7 @@ function RouteDetailsCard({
         3: busIcon,
     };
     return (
-        <Card
+        <Card.Root
             display="flex"
             direction="row"
             align="center"
@@ -42,15 +34,15 @@ function RouteDetailsCard({
             _active={{ bg: "deepNavy" }}
             cursor="pointer"
         >
-            <ArrowBackIcon boxSize={6} color="snow" onClick={handleBack} />
-            <Img
+            <Icon boxSize={6} color="snow" asChild><LuArrowLeft onClick={handleBack} /></Icon>
+            <Image
                 src={routeIcons[routeType]}
                 maxH="100%"
                 maxW="40px"
                 color="snow"
             />
-            <VStack spacing="0" align="start" w="100%" color="snow">
-                <CardHeader p="0">
+            <VStack gap="0" align="start" w="100%" color="snow">
+                <Card.Header p="0">
                     <Heading
                         fontFamily="latoB"
                         fontSize="fs.subheader"
@@ -60,8 +52,8 @@ function RouteDetailsCard({
                             routeHeadsign
                         )}`}
                     </Heading>
-                </CardHeader>
-                <CardBody p="0">
+                </Card.Header>
+                <Card.Body p="0">
                     <Text
                         fontFamily="latoR"
                         fontSize="fs.body.lg"
@@ -69,14 +61,10 @@ function RouteDetailsCard({
                     >
                         {routeName}
                     </Text>
-                </CardBody>
+                </Card.Body>
             </VStack>
-            <StarIcon
-                boxSize={6}
-                onClick={handleUpdate}
-                color={isSaved ? "sunrise" : "lavenderGrey"}
-            />
-        </Card>
+            <Icon boxSize={6} color={isSaved ? "sunrise" : "lavenderGrey"} asChild><LuStar onClick={handleUpdate} /></Icon>
+        </Card.Root>
     );
 }
 

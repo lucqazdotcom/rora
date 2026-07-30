@@ -1,12 +1,12 @@
-import { Box, Flex, Img } from "@chakra-ui/react";
+import { Steps, Box, Flex, Image, Icon } from "@chakra-ui/react";
 import dots from "../../assets/images/dots.svg";
-import { SettingsIcon } from "@chakra-ui/icons";
+import { LuSettings } from 'react-icons/lu';
 
 function UserProfileContainer({ userImg, handleNavigate }) {
     return (
         <Box onClick={handleNavigate} position="absolute" right="0" maxW="55px" cursor="pointer">
             <Flex position="relative" direction="column" gap="4px" pb="5px">
-                <Img src={dots} maxH="15px" />
+                <Image src={dots} maxH="15px" />
                 <Box
                     border="1px"
                     borderColor="lavender"
@@ -18,12 +18,7 @@ function UserProfileContainer({ userImg, handleNavigate }) {
                     backgroundPosition="center"
                     backgroundSize="cover"
                 ></Box>
-                <SettingsIcon
-                    color="lavender"
-                    position="absolute"
-                    bottom="0"
-                    right="0"
-                />
+                <Icon color="lavender" position="absolute" bottom="0" right="0" asChild><LuSettings /></Icon>
             </Flex>
         </Box>
     );

@@ -1,8 +1,9 @@
-import { Button } from "@chakra-ui/react";
+import { Steps, Button } from "@chakra-ui/react";
 
 function LoginButton({ innerText, onClick, isLoading }) {
     return (
         <Button
+            textStyle="labels"
             onClick={onClick}
             display="flex"
             alignItems="center"
@@ -11,9 +12,7 @@ function LoginButton({ innerText, onClick, isLoading }) {
             color="snow"
             bg="sapphire"
             borderRadius="20px"
-            fontFamily="latoB"
-            fontSize="fs.labels"
-            isLoading={isLoading}
+            loading={isLoading}
             _hover={{ bg: "navy" }}
             _active={{}}
         >

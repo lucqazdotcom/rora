@@ -1,15 +1,15 @@
 import UserProfileContainer from "../../components/userProlileContainer/UserProfileContainer";
 import user3 from "../../assets/images/user3.jpg";
-import { Flex, Img, Box } from "@chakra-ui/react";
+import { Steps, Flex, Image, Box, Icon } from "@chakra-ui/react";
 import MainHeader from "../../components/mainHeader/MainHeader";
 import RouteCardList from "../../components/routeCardList/RouteCardList";
 import SearchResultsDrawer from "../../components/ui/drawer/SearchResultsDrawer";
 import { useState, useEffect } from "react";
-import { CloseIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../../utils/useLoading";
 import RoraLogo from "../../assets/logo/rora-secondary.svg";
 import searchRoutes from "../../services/searchRoutes"
+import { LuX } from 'react-icons/lu';
 
 function Home() {
     const isLoading = useLoading();
@@ -76,7 +76,7 @@ function Home() {
                 userImg={user3}
                 handleNavigate={handleNavigate}
             />
-            <Img
+            <Image
                 src={RoraLogo}
                 position="absolute"
                 display={isLoading ? "block" : "none"}
@@ -93,7 +93,7 @@ function Home() {
                 h="10vh"
                 p="8px"
             >
-                <CloseIcon color="snow" />
+                <Icon color="snow" asChild><LuX /></Icon>
             </Box>
             <RouteCardList
                 handleFocus={handleFocus}

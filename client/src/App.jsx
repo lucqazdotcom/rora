@@ -1,6 +1,6 @@
-import { ChakraProvider, Box, Flex } from "@chakra-ui/react";
+import { Steps, Flex } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import overrides from "./styles/theme";
+import { Provider } from "./components/ui/provider";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import UserProfile from "./pages/userProfile/UserProfile";
@@ -11,14 +11,14 @@ import "../src/assets/fonts/fonts.css";
 function App() {
     return (
         <>
-            <ChakraProvider theme={overrides}>
+            <Provider defaultTheme="dark">
                 <Flex
                     justifyContent="center"
                     direction="column"
                     align="center"
                     h="100vh"
                     w="100vw"
-                    backgroundColor="deepNavy"
+                    backgroundColor="neutral.background"
                 >
                     <BrowserRouter>
                         <Routes>
@@ -42,7 +42,7 @@ function App() {
                     </BrowserRouter>
                     <Footer />
                 </Flex>
-            </ChakraProvider>
+            </Provider>
         </>
     );
 }

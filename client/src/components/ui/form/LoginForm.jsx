@@ -1,4 +1,4 @@
-import { FormControl, Box } from "@chakra-ui/react";
+import { Steps, Field, Box } from "@chakra-ui/react";
 import LoginInput from "../input/LoginInput";
 import { useState } from "react";
 import LoginButton from "../button/LoginButton";
@@ -38,11 +38,10 @@ function LoginForm({ handleVerifyUser }) {
         }
     };
     return (
-        <FormControl
+        <Field.Root
             display="flex"
             flexDirection="column"
             gap="16px"
-            fontFamily="latoR"
         >
             <LoginInput
                 placeholderText="Username"
@@ -63,7 +62,7 @@ function LoginForm({ handleVerifyUser }) {
                     onClick={handleSubmit}
                 />
             </Box>
-        </FormControl>
+        </Field.Root>
     );
 }
 

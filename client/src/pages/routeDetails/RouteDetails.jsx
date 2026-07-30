@@ -1,4 +1,4 @@
-import { Flex, Skeleton, useDisclosure, Box } from "@chakra-ui/react";
+import { Steps, Flex, Skeleton, useDisclosure, Box } from "@chakra-ui/react";
 import RouteStopList from "../../components/routeStopList/RouteStopList";
 import TimeBadge from "../../components/ui/badge/TimeBadge";
 import UpdateButton from "../../components/ui/button/UpdateButton";
@@ -51,7 +51,7 @@ function RouteDetails() {
         return null;
     };
 
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { open, onOpen, onClose } = useDisclosure();
 
     // Mimics if an update were to be received from a service provider
     const incomingUpdate = () => {
@@ -109,10 +109,11 @@ function RouteDetails() {
             >
                 <Flex h="25%" direction="column" gap="16px">
                     <Skeleton
-                        startColor="darkNavy"
-                        endColor="twilight"
-                        isLoaded={isLoaded}
-                    >
+                        loading={!isLoaded}
+                        css={{
+                            '--start-color': 'darkNavy',
+                            '--end-color': 'twilight'
+                        }}>
                         <RouteDetailsCard
                             routeNumber={
                                 routeDetailsData.route.route_short_name
@@ -128,10 +129,11 @@ function RouteDetails() {
                         />
                     </Skeleton>
                     <Skeleton
-                        startColor="darkNavy"
-                        endColor="twilight"
-                        isLoaded={isLoaded}
-                    >
+                        loading={!isLoaded}
+                        css={{
+                            '--start-color': 'darkNavy',
+                            '--end-color': 'twilight'
+                        }}>
                         <Flex
                             align="center"
                             gap="16px"
@@ -151,19 +153,21 @@ function RouteDetails() {
                 <Box
                     h="75%"
                     overflowY="scroll"
-                    sx={{
+                    css={{
                         overflowY: "scroll",
                         scrollbarWidth: "thin",
-                        "&::-webkit-scrollbar": {
+
+                        '& &::-webkit-scrollbar': {
                             display: "none",
-                        },
+                        }
                     }}
                 >
                     <Skeleton
-                        startColor="darkNavy"
-                        endColor="twilight"
-                        isLoaded={isLoaded}
-                    >
+                        loading={!isLoaded}
+                        css={{
+                            '--start-color': 'darkNavy',
+                            '--end-color': 'twilight'
+                        }}>
                         <RouteStopList
                             direction={direction}
                             data={routeDetailsDataSliced}

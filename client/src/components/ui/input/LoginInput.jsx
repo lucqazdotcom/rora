@@ -1,4 +1,4 @@
-import { Input } from "@chakra-ui/react";
+import { Steps, Input } from "@chakra-ui/react";
 
 function LoginInput({
     innerText,
@@ -9,22 +9,20 @@ function LoginInput({
 }) {
     return (
         <Input
-            fontSize="fs.body.lg"
+            textStyle="bodySmall"
             borderRadius="20px"
-            bg="twilight"
+            bg="neutral.surface"
             border={errorState ? "1px" : "none"}
-            borderColor={errorState ? "crimson" : "none"}
-            color="snow"
+            borderColor={errorState ? "status.cancelled" : "none"}
+            color="neutral.text"
             px="24px"
             placeholder={placeholderText}
-            _placeholder={{ color: "lavender", fontSize: "fs.labels" }}
-            focusBorderColor="lavender"
-            _focus={{ bg: "lavenderGrey" }}
-            _active={{ bg: "lavenderGrey" }}
+            _placeholder={{ color: "neutral.textMuted"}}
+            _focus={{ bg: "neutral.raised" }}
+            _active={{ bg: "neutral.raised" }}
             required
             type={type}
-            onChange={onChange}
-        >
+            onValueChange={onChange}>
             {innerText}
         </Input>
     );

@@ -1,20 +1,20 @@
-import { Box, FormLabel, Input, Text } from "@chakra-ui/react";
+import { Steps, Box, Input, Text } from "@chakra-ui/react";
 
 function UserInput({ inputHeader, type, placeholder, value, onChange }) {
     return (
         <Box fontFamily="latoR" w="100%">
-            <FormLabel
+            <Field.Label
                 m="0"
                 color="lavenderGrey"
                 fontSize="fs.body.sm"
                 lineHeight="lh.body.sm"
             >
                 {inputHeader}
-            </FormLabel>
+            </Field.Label>
             <Input
                 placeholder={placeholder}
                 value={value}
-                onChange={onChange}
+                onValueChange={onChange}
                 type={type}
                 // h="35px"
                 fontSize="fs.body.md"
@@ -22,10 +22,8 @@ function UserInput({ inputHeader, type, placeholder, value, onChange }) {
                 bg="lavenderGrey"
                 color="snow"
                 borderColor="lavenderGrey"
-                focusBorderColor="lavender"
                 _placeholder={{ color: "lavender", fontSize: "fs.labels" }}
-                _focus={{ bg: "lavenderGrey" }}
-            ></Input>
+                _focus={{ bg: "lavenderGrey" }}></Input>
         </Box>
     );
 }

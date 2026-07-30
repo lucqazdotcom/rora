@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Steps, Button } from "@chakra-ui/react";
 
 function TestUserButton({ innerText, onClick }) {
     return (
@@ -13,7 +13,7 @@ function TestUserButton({ innerText, onClick }) {
             bg="deepNavy"
             borderRadius="5px"
             variant="outline"
-            colorScheme="lavenderGrey"
+            colorPalette="lavenderGrey"
             fontFamily="latoB"
             fontSize="fs.body.sm"
             _hover={{ 

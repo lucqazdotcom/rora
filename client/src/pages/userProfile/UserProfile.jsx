@@ -1,8 +1,8 @@
-import { ChevronLeftIcon } from "@chakra-ui/icons";
-import { Box, Flex } from "@chakra-ui/react";
+import { Steps, Box, Flex, Icon } from "@chakra-ui/react";
 import SaveButton from "../../components/ui/button/SaveButton";
 import UserProfileForm from "../../components/ui/form/UserProfileForm";
 import { useNavigate } from "react-router-dom";
+import { LuChevronLeft } from 'react-icons/lu';
 
 function UserProfile() {
     const navigate = useNavigate();
@@ -21,12 +21,7 @@ function UserProfile() {
             h="100%"
         >
             <Flex justify="space-between">
-                <ChevronLeftIcon
-                    boxSize="32px"
-                    color="snow"
-                    onClick={handleClick}
-                    cursor="pointer"
-                />
+                <Icon boxSize="32px" color="snow" cursor="pointer" asChild><LuChevronLeft onClick={handleClick} /></Icon>
             </Flex>
             <UserProfileForm />
         </Flex>

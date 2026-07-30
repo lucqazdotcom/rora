@@ -1,7 +1,6 @@
-import { Flex, Skeleton, } from "@chakra-ui/react";
+import { Steps, Flex, Skeleton } from "@chakra-ui/react";
 import RouteSearchPanel from "../routeSearchPanel/RouteSearchPanel";
 import RouteCard from "../routeCard/RouteCard";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useNearbyRoutes from "../../services/useNearbyRoutes";
@@ -22,12 +21,6 @@ function RouteCardList({
     const { savedRoutesData } = useGetSavedRoutes();
 
     const [listType, setListType] = useState("nearby");
-
-    //Variants for transitions
-    const cardListVariants = {
-        visible: { y: "15%", transition: { duration: 0.3 } },
-        hidden: { y: "50%" },
-    };
 
     const onFocus = () => {
         handleFocus();
@@ -54,10 +47,8 @@ function RouteCardList({
     return (
         <Flex
             direction="column"
-            as={motion.div}
-            variants={cardListVariants}
-            initial={cardListVisible ? "visible" : "hidden"}
-            animate={cardListVisible ? "visible" : "hidden"}
+            transform={cardListVisible ? "translateY(15%)" : "translateY(50%)"}
+            transition="transform 0.3s"
             h="100%"
         >
             <RouteSearchPanel
@@ -69,11 +60,12 @@ function RouteCardList({
                 handleEnter={handleEnter}
             />
             <Skeleton
-                startColor="darkNavy"
                 mt="16px"
-                endColor="twilight"
-                isLoaded={isLoaded}
-            >
+                loading={!isLoaded}
+                css={{
+                    '--start-color': 'darkNavy',
+                    '--end-color': 'twilight'
+                }}>
                 <Flex
                     direction="column"
                     gap="5px"
@@ -81,11 +73,12 @@ function RouteCardList({
                     py="8px"
                     h={cardListVisible ? "100%" : "175px"}
                     overflowY="auto"
-                    sx={{
+                    css={{
                         scrollbarWidth: "thin",
-                        "&::-webkit-scrollbar": {
+
+                        '& &::-webkit-scrollbar': {
                             display: "none",
-                        },
+                        }
                     }}
                 >
                     {listType === "nearby"

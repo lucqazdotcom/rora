@@ -1,31 +1,24 @@
-import {
-    Stepper,
-    StepIndicator,
-    Step,
-    StepStatus,
-    StepIcon,
-    Box,
-    StepTitle,
-} from "@chakra-ui/react";
+import { Steps, Box } from "@chakra-ui/react";
+import { LuCheck } from 'react-icons/lu';
 import { useSteps } from "@chakra-ui/react";
 
 function RouteStopList({ data }) {
-    const { activeStop } = useSteps({
-        index: 1,
-        count: data.length,
+    const stepsApi = useSteps({
+        defaultStep: 1,
+        count: data.length
     });
 
     return (
-        <Stepper
-            index={activeStop}
+        <Steps.RootProvider
             orientation="vertical"
             gap="4px"
             color="snow"
-            colorScheme="red"
+            colorPalette="red"
             size="sm"
+            value={stepsApi}
         >
             {data.map((stop, index) => (
-                <Step
+                <Steps.Item
                     display="flex"
                     alignItems="center"
                     key={index}
@@ -36,21 +29,21 @@ function RouteStopList({ data }) {
                     px="16px"
                     bg="twilight"
                 >
-                    <StepIndicator>
-                        <StepStatus complete={<StepIcon />} />
-                    </StepIndicator>
+                    <Steps.Indicator>
+                        <Steps.Status complete={<LuCheck />} />
+                    </Steps.Indicator>
                     <Box flexShrink="0">
-                        <StepTitle
+                        <Steps.Title
                             fontFamily="latoB"
                             fontSize="fs.body.lg"
                             lineHeight="lh.body.lg"
                         >
                             {stop.stop_name}
-                        </StepTitle>
+                        </Steps.Title>
                     </Box>
-                </Step>
+                </Steps.Item>
             ))}
-        </Stepper>
+        </Steps.RootProvider>
     );
 }
 

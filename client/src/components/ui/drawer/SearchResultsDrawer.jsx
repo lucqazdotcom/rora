@@ -1,12 +1,6 @@
-import { Box } from "@chakra-ui/react";
+import { Steps, Box } from "@chakra-ui/react";
 import RouteCard from "../../routeCard/RouteCard";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-
-const searchResultsVariants = {
-    visible: { y: "0%", transition: {duration: 0.3}},
-    hidden: { y: "100%" },
-};
 
 function SearchResultsDrawer({ searchData, isOpen }) {
     const navigate = useNavigate();
@@ -36,10 +30,8 @@ function SearchResultsDrawer({ searchData, isOpen }) {
                 zIndex="10"
             >
                 <Box
-                as={motion.div}
-                variants={searchResultsVariants}
-                initial={isOpen ? "visible" : "hidden"}
-                animate={isOpen ? "visible" : "hidden"}
+                transform={isOpen ? "translateY(0%)" : "translateY(100%)"}
+                transition="transform 0.3s"
                 py="10px"
                 >
                     {uniqueDirectionHeadsigns.map((direction, index) => (

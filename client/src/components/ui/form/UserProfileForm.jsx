@@ -1,4 +1,4 @@
-import { Divider, Flex, FormControl, VStack, Box } from "@chakra-ui/react";
+import { Steps, Flex, VStack, Box, Separator, Field } from "@chakra-ui/react";
 import UserInput from "../input/UserInput";
 import RoraCard from "../../../assets/images/roraCard.svg";
 import SaveButton from "../button/SaveButton";
@@ -67,15 +67,16 @@ function UserProfileForm() {
 
     if (userDetailsData) {
         return (
-            <FormControl
+            <Field.Root
                 overflowY="scroll"
                 h="100%"
-                sx={{
+                css={{
                     overflowY: "scroll",
                     scrollbarWidth: "thin",
-                    "&::-webkit-scrollbar": {
+
+                    '& &::-webkit-scrollbar': {
                         display: "none",
-                    },
+                    }
                 }}
             >
                 <VStack
@@ -126,7 +127,7 @@ function UserProfileForm() {
                         }
                     />
                 </VStack>
-                <Divider borderColor="darkNavy" m="16px" />
+                <Separator borderColor="darkNavy" m="16px" />
                 <VStack gap="1">
                     <UserInput
                         inputHeader="Card Number"
@@ -188,7 +189,7 @@ function UserProfileForm() {
                     />
                 </VStack>
                 <SaveButton onClick={handleSave} />
-            </FormControl>
+            </Field.Root>
         );
     }
 }

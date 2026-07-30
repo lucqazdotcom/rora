@@ -1,11 +1,17 @@
-import { Box, Center, Text } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { Steps, Box, Center, Text } from "@chakra-ui/react";
 
 function MainHeader({ userFirstName, loaded }) {
     return (
         <Center
-            as={motion.div}
-            animate={{ opacity: loaded ? 0 : 1, scale: loaded ? 0 : 1 }}
+            data-state={loaded ? "closed" : "open"}
+            _open={{
+                animationName: "scale-in",
+                animationDuration: "300ms"
+            }}
+            _closed={{
+                animationName: "scale-out",
+                animationDuration: "120ms"
+            }}
             position="absolute"
             top="100px"
             maxW="100%"
