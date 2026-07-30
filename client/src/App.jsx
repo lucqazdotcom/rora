@@ -6,7 +6,6 @@ import Home from "./pages/home/Home";
 import UserProfile from "./pages/userProfile/UserProfile";
 import Footer from "./components/footer/Footer";
 import RouteDetails from "./pages/routeDetails/RouteDetails";
-import PhoneBorder from "./components/phoneBorder/PhoneBorder";
 import "../src/assets/fonts/fonts.css";
 
 function App() {
@@ -15,46 +14,33 @@ function App() {
             <ChakraProvider theme={overrides}>
                 <Flex
                     justifyContent="center"
+                    direction="column"
                     align="center"
                     h="100vh"
                     w="100vw"
-                    backgroundColor="lavender"
+                    backgroundColor="deepNavy"
                 >
-                    <PhoneBorder
-                        children={
-                            <>
-                                <Box
-                                    bg="deepNavy"
-                                    boxSizing="border-box"
-                                    h="90%"
-                                    px="24px"
-                                    pt="24px"
-                                >
-                                    <BrowserRouter>
-                                        <Routes>
-                                            <Route
-                                                path="/"
-                                                element={<Login />}
-                                            />
-                                            <Route
-                                                path="/home"
-                                                element={<Home />}
-                                            />
-                                            <Route
-                                                path="/home/user"
-                                                element={<UserProfile />}
-                                            />
-                                            <Route
-                                                path="/home/:id"
-                                                element={<RouteDetails />}
-                                            />
-                                        </Routes>
-                                    </BrowserRouter>
-                                </Box>
-                                <Footer />
-                            </>
-                        }
-                    />
+                    <BrowserRouter>
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={<Login />}
+                            />
+                            <Route
+                                path="/home"
+                                element={<Home />}
+                            />
+                            <Route
+                                path="/home/user"
+                                element={<UserProfile />}
+                            />
+                            <Route
+                                path="/home/:id"
+                                element={<RouteDetails />}
+                            />
+                        </Routes>
+                    </BrowserRouter>
+                    <Footer />
                 </Flex>
             </ChakraProvider>
         </>
