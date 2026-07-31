@@ -1,4 +1,4 @@
-import { Steps, Badge } from "@chakra-ui/react";
+import { Badge } from "@chakra-ui/react";
 
 function TimeBadge({ innerText }) {
     const currentTime = Date.now();

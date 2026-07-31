@@ -1,4 +1,4 @@
-import { Steps, Flex, Progress, Text, Dialog, Portal } from "@chakra-ui/react";
+import { Flex, Progress, Text, Dialog, Portal } from "@chakra-ui/react";
 import PrimaryButton from "../button/PrimaryButton";
 import SecondaryButton from "../button/SecondaryButton";
 import { useState } from "react";

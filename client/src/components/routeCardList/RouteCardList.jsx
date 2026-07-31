@@ -1,4 +1,4 @@
-import { Steps, Flex, Skeleton } from "@chakra-ui/react";
+import { Flex, Skeleton } from "@chakra-ui/react";
 import RouteSearchPanel from "../routeSearchPanel/RouteSearchPanel";
 import RouteCard from "../routeCard/RouteCard";
 import { useState } from "react";

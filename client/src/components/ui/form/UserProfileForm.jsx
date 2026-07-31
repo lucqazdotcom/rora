@@ -1,4 +1,4 @@
-import { Steps, Flex, VStack, Box, Separator, Field } from "@chakra-ui/react";
+import { Flex, VStack, Box, Separator, Field } from "@chakra-ui/react";
 import UserInput from "../input/UserInput";
 import RoraCard from "../../../assets/images/roraCard.svg";
 import SaveButton from "../button/SaveButton";

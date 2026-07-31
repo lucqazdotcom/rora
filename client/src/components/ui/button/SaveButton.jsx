@@ -1,4 +1,4 @@
-import { Steps, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 function SaveButton({ onClick }) {
     return (

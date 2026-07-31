@@ -1,4 +1,4 @@
-import { Steps, Card, Heading, Image, VStack, Text, Icon } from "@chakra-ui/react";
+import { Card, Heading, Image, VStack, Text, Icon } from "@chakra-ui/react";
 import tramIcon from "../../assets/icons/tram.svg";
 import subwayIcon from "../../assets/icons/subway.svg";
 import trainIcon from "../../assets/icons/train.svg";

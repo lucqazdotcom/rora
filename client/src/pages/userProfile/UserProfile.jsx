@@ -1,4 +1,4 @@
-import { Steps, Box, Flex, Icon } from "@chakra-ui/react";
+import { Box, Flex, Icon } from "@chakra-ui/react";
 import SaveButton from "../../components/ui/button/SaveButton";
 import UserProfileForm from "../../components/ui/form/UserProfileForm";
 import { useNavigate } from "react-router-dom";

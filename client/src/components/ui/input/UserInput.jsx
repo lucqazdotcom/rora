@@ -1,4 +1,4 @@
-import { Steps, Box, Input, Text } from "@chakra-ui/react";
+import { Box, Input, Text } from "@chakra-ui/react";
 
 function UserInput({ inputHeader, type, placeholder, value, onChange }) {
     return (

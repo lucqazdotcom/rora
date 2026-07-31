@@ -1,4 +1,4 @@
-import { Steps, Box, Center, Text } from "@chakra-ui/react";
+import { Box, Center, Text } from "@chakra-ui/react";
 
 function MainHeader({ userFirstName, loaded }) {
     return (

@@ -1,4 +1,4 @@
-import { Steps, defineSlotRecipe } from "@chakra-ui/react";
+import { defineSlotRecipe } from "@chakra-ui/react";
 import { dialogAnatomy } from "@chakra-ui/react/anatomy";
 const Modal = defineSlotRecipe({
     slots: dialogAnatomy.keys(),

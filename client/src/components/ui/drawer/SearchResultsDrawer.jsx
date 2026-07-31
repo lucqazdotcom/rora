@@ -1,4 +1,4 @@
-import { Steps, Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import RouteCard from "../../routeCard/RouteCard";
 import { useNavigate } from "react-router-dom";
 
