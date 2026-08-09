@@ -1,5 +1,5 @@
 import { ChakraProvider, Box, Flex } from "@chakra-ui/react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import overrides from "./styles/theme";
 import Home from "./pages/home/Home";
 import SignInPage from "./pages/signInPage/SignInPage";
@@ -35,11 +35,12 @@ function App() {
 					>
 						<BrowserRouter>
 							<Routes>
-								<Route path={signIn_page_url} element={<SignInPage />} />
-								<Route path={signUp_page_url} element={<SignUpPage />} />
+								<Route path="/" element={<Navigate to="/home" replace />} />
 								<Route path={"/home"} element={<Home />} />
 								<Route path="/home/user" element={<UserProfile />} />
 								<Route path="/home/:id" element={<RouteDetails />} />
+								<Route path={signIn_page_url} element={<SignInPage />} />
+								<Route path={signUp_page_url} element={<SignUpPage />} />
 							</Routes>
 						</BrowserRouter>
 					</Box>
