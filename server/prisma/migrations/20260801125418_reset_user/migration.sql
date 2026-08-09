@@ -9,10 +9,6 @@ CREATE TABLE "user" (
     "firstName" VARCHAR(255),
     "lastName" VARCHAR(255),
     "phone" VARCHAR(20),
-    "cardNumber" VARCHAR(20),
-    "exDate" VARCHAR(5),
-    "cvc" VARCHAR(4),
-    "zip" VARCHAR(6),
 
     CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );

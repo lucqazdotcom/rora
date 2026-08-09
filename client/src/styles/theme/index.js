@@ -1,14 +1,12 @@
 import { extendTheme } from "@chakra-ui/react";
 import styles from "./styles";
-import Modal from './components/Modal'
-import Drawer from './components/Drawer'
+import Modal from "./components/Modal";
 
 const overrides = extendTheme({
-    ...styles,
-    components: {
-        Modal,
-        Drawer
-    }
+	...styles,
+	components: {
+		Modal,
+	},
 });
 
 export default overrides;
